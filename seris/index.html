@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue js practice</title>
+    <link rel="stylesheet" href="../bootstrap.min.css">
+    <script src="../vue.js"></script>
+    <style>
+        .demo{
+            display: block;
+            width: 200px;
+            height: 150px;
+            margin: 10px;
+            float: left;
+            background-color: gray;
+            cursor: pointer;
+        }
+        .red{
+            background-color: red;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .teal{
+            background-color: teal;
+        }
+        .black{
+            background-color: black;
+        }
+        .green{
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="vue_wrapper mt-3">
+                    <h1 v-once>{{ title }}</h1> <!--v-once is use for render once. if title change letter it will not change to new one -->
+                    <p>{{ changeTitle() }}</p>
+                    <input type="text" class="form-control" :value="title" placeholder="some title goes here..."> <!-- instead of v-bind we can use : both are the same-->
+                    <hr>
+                    <p v-html="html"></p> <!-- v-html renders the html as output -->
+                    <hr>
+                    <!-- <button v-on:click="increment">click me</button> -->
+                    <button @click="increment">click me</button> <!-- v-on: and @ playes same role that is listen to some event -->
+                    <button @click="count++">click me</button> <!-- you can write javascript on vue js -->
+                    <span class="d-block">{{ result()  }}</span>
+                    <span class="d-block">{{ count }}</span>
+                    <p @mousemove="updateCoordinates">
+                        Change Coordinate on mouse move: {{ x }} / {{ y }}
+                        <!-- - <span @mousemove="stopUpdating">Dead spot</span> -->
+                        - <span @mousemove.stop>Dead spot</span> <!-- here stop is a event modifyer -->
+                    </p>
+                    <p>
+                        <input type="text" @keyup.space.enter="alertMe"> <!-- space and enter is key modifyer here. The alertMe function will execute when press eighter space or enter on keyboard -->
+                    </p>
+
+                    <!-- Two way data binding -->
+                    <p>
+                        <input type="text" v-model="name"> <!-- v-model is outputing name value inside input also it will update when input value is changed -->
+                        <span class="d-block">{{ name }}</span>
+                    </p>
+                    <!-- computed properties -->
+                    <p>
+                        <button type="button" @click="count2++">increment</button>
+                        <button type="button" @click="count2--">decrement</button>
+                        <p>{{ count2 }} | {{ result() }} | {{ finalRes }}</p>
+                    </p>
+                    <p>attaching and detaching class to an element</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="demo" @click="attachRed = !attachRed" :class="{red: attachRed,teal: !attachRed}"></div>
+                                <div class="demo" @click="attachBlue = !attachBlue" :class="divClasses"></div>
+                                <div class="demo" :class="color"></div>
+                                <div class="demo" :class="[color,{teal: !attachRed}]"></div>
+                                <hr>
+                                <input type="text" v-model="color">
+                            </div>
+                            <h3>something new</h3>
+                            <div class="col-md-12">
+                                <div class="demo" :style="{ backgroundColor: colour }"></div>
+                                <div class="demo" :style="myStyle"></div>
+                                <div class="demo" :style="[myStyle,{height: width + 'px'}]"></div>
+                                <hr>
+                                <span>colour</span>
+                                <input type="text" v-model="colour"><br><br>
+                                <span>width</span>
+                                <input type="text" v-model="width">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:'.vue_wrapper',
+        data:{
+            title : "hello world!",
+            html: "<a href='http://google.com' class='btn btn-primary'>test link</a>",
+            count: 0,
+            count2: 0,
+            x: 0,
+            y: 0,
+            name: 'pre defiend Data',
+            attachRed: false,
+            attachBlue: false,
+            color: 'red',
+            colour: 'black',
+            width: 100,
+        },
+        // computed property is always run synchronously 
+        computed:{ // all the functions in side the comuted property are cache the result or calculate wheather it is need to caltucate other wise it does nothing
+            finalRes:function(){
+                // console.log('computed');
+                return this.count2 > 10 ? 'More than 10' : 'Short than 10';
+            },
+            divClasses:function(){
+                return {
+                    blue: this.attachBlue,
+                    red: !this.attachBlue
+                };
+            },
+            addClass:function(){
+                this.attachBlue = true
+            },
+            myStyle:function(){
+                return {
+                    backgroundColor : this.colour,
+                    width: this.width + 'px'
+                };
+            }
+        },
+        watch:{ // watch works asynchronously
+            count2: function(value){
+                var vm = this;
+                setTimeout(function(){
+                    vm.count2 = 0;
+                },2000);
+            }
+        },
+        methods:{ // all the functions in side the method property is always re-rendered or calculate every time wheather it is need to caltucate or not
+            changeTitle:function(event){
+                return this.title = "hi i am tanjil";
+            },
+            increment:function(){
+                this.count++
+            },
+            updateCoordinates:function(event){
+                this.x = event.clientX
+                this.y = event.clientY
+            },
+            // stopUpdating:function(event){
+            //     event.stopPropagation();
+            // }
+            alertMe:function(){
+                alert('yes i am an alert')
+            },
+            result:function(){
+                // console.log('method');
+                return this.count > 10 ? "Greater than 10" : "Less than 10";
+            }
+        }
+    });
+</script>
+</html>
