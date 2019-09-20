@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Udemy Vue js practice</title>
+    <title>Vue js practice</title>
     <link rel="stylesheet" href="../bootstrap.min.css">
     <script src="../vue.js"></script>
     <style>
@@ -38,7 +38,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="change_title mt-3">
+                <div class="vue_wrapper mt-3">
                     <h1 v-once>{{ title }}</h1> <!--v-once is use for render once. if title change letter it will not change to new one -->
                     <p>{{ changeTitle() }}</p>
                     <input type="text" class="form-control" :value="title" placeholder="some title goes here..."> <!-- instead of v-bind we can use : both are the same-->
@@ -101,7 +101,7 @@
 </body>
 <script>
     new Vue({
-        el:'.change_title',
+        el:'.vue_wrapper',
         data:{
             title : "hello world!",
             html: "<a href='http://google.com' class='btn btn-primary'>test link</a>",
@@ -119,7 +119,6 @@
         // computed property is always run synchronously 
         computed:{ // all the functions in side the comuted property are cache the result or calculate wheather it is need to caltucate other wise it does nothing
             finalRes:function(){
-                // console.log('computed');
                 return this.count2 > 10 ? 'More than 10' : 'Short than 10';
             },
             divClasses:function(){
@@ -164,10 +163,8 @@
                 alert('yes i am an alert')
             },
             result:function(){
-                // console.log('method');
                 return this.count > 10 ? "Greater than 10" : "Less than 10";
             }
         }
     });
 </script>
-</html>

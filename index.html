@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -254,4 +255,262 @@
 	});
 </script>
 </body>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue js practice</title>
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<style>
+		.style-class{
+			width: 50%;
+    		margin-left: 15px;
+    		margin-bottom: 3rem;
+		}
+		.wrapper {
+			background:rgba(0, 0, 0, 0.7);
+			padding: 15px;
+			margin-bottom: 15px;  
+			border-radius: 5px;
+			box-shadow: 0 0 7px 2px #909090;
+		}
+		span.city-name {
+			color: #fff;	
+			padding-left: 3px;	
+		}
+	</style>
+</head>  
+<body>
+	<div id="demo">
+		<h1 v-text="message"></h1>
+		<p v-html="data"></p>
+		<p v-show="showing">lol</p>
+		<p v-if="shoing">you are in v-if</p>
+		<p v-if="showing == shoing">you are in v-if after checking</p>
+		<p v-if="value">you are in 3rd v-if block</p>
+		<p v-else>you are in v-else block</p>
+		<p v-pre>{{ message }} , cause this is pre formated text</p>
+		<p v-once>{{ message }} , you can not change the value form console it renders only one time</p>
+		<span v-bind:title="title" class="d-block">WHO , hover over this to see abbreviation</span>
+		<img  v-bind:src="url" v-bind:alt="alter" :title="title">
+		<!-- you can use v-bind or only : both of them are same -->
+		<ul>
+			<li v-for="single_info in info">{{ single_info.todo }}</li>
+		</ul>
+
+		<ol>
+			<li v-for="loop in count">{{ message }} #{{ loop }}</li>
+		</ol>
+
+		<input type="text" v-model="message">
+		<p>Count: {{ result }}</p>
+		<button class="btn btn-primary" v-on:click="resultUp">plus</button>
+		<button class="btn btn-primary" @click="resultDown">minus</button>
+		<!-- you can use v-on:eventName="methodName" or just @event="methodName" -->
+		<p>
+			Visit: <a :href="link">{{ clearUrl }}</a>
+		</p>
+		<input type="text" v-model="link">
+		<button class="btn btn-info" @click="processUrl">clean url</button>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<ul>
+						<li>First: {{ firstName }}</li>
+						<li>Last: {{ lastName }}</li>
+						<li>Full Name: {{ fullName }}</li>
+					</ul>
+					<input type="text" class="form-control" v-model="fullName"><br>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<input type="text" class="form-control" v-model="firstName" placeholder="type first name">
+				</div>
+				<div class="col-md-6">
+					<input type="text" class="form-control" v-model="lastName" placeholder="type last name">
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<p class="display-2">You are a <strong>{{ designation }}</strong></p>
+					<p class="display-4">Your Current XP: {{ xp }}</p>
+					<div class="col-md-6 float-left">
+						<button type="button" class="btn btn-info" @click="addXp">+ add xp</button>
+					</div>
+					<div class="col-md-6 float-left">
+						<button type="button" class="btn btn-info" @click="decXp">- dec xp</button> 
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<div class="display-4">FUll Name: <strong>{{ allName() }}</strong> Using methods properties</div>
+					<p>Both of them are same but first one is used computed properties and second one is used methods</p>
+					<div class="row">
+						<div class="col-md-6">
+							<input type="text" class="form-control" v-model="first">
+						</div>
+						<div class="col-md-6">
+							<input type="text" class="form-control" v-model="last">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row mt-3">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<div class="wrapper">
+						<span class="h3 text-center text-white d-block pt-3 pb-3">Fill Out This Form</span>
+						<div class="d-flex">
+							<div class="form-group style-class">
+								<label for="zip" style="color: #fff;">Starting Zip</label>
+								<input type="text" class="form-control" id="zip" placeholder="zip" v-model="startingZip">
+								<span class="city-name">{{ startingCity }}</span>
+							</div>
+							<div class="form-group style-class">
+								<label for="zip_2" style="color: #fff;">Ending Zip</label>
+								<input type="text" class="form-control" id="zip_2" placeholder="zip" v-model="endingZip">
+								<span class="city-name">{{ endingCity }}</span>
+							</div>							
+						</div>
+						<button class="btn btn-block btn-sm btn-outline-info" type="submit">submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+	<script type="text/javascript">
+	var app = new Vue({
+	
+	  el: "#demo",
+	  data: {
+	  	message : 'wellcome to vue world',
+	  	data : '<strong>wellcome</strong> to the tutorial <small>thi si vue js </small>',
+	  	showing : true,
+	  	shoing : true,
+	  	value : true,
+	  	title : "World Health Organization",
+	  	url : "https://vuejs.org/images/logo.png",
+	  	alter : "vue js logo",
+	  	info: [
+	  		{todo: "item1"},
+	  		{todo: "item2"},
+	  		{todo: "item3"},
+	  		{todo: "item4"},
+	  		{todo: "item5"},
+	  		{todo: "item6"}
+	  	],
+	  	count: 5,
+	  	result: 0,
+	  	link: "",
+	  	clearUrl: "",
+	  	firstName: "",
+	  	lastName: "",
+	  	xp: 10,
+		first: "",
+		last: "",
+		startingZip: "",
+		endingZip: "",
+		startingCity: "",
+		endingCity: ""
+	  },
+	  methods: { // methods are not cached for this it always need to rerender for output
+	  		resultUp: function(){
+	  			this.result += 1
+	  		},
+	  		resultDown: function() {
+	  			this.result -=1
+	  		},
+	  		processUrl: function() {
+	  			this.clearUrl = this.link.replace(/^https?:\/\//,'').replace(/\/$/,'')
+	  		},
+	  		addXp: function(){
+	  			return this.xp +=10
+	  		},
+	  		decXp: function(){
+	  			return this.xp -=10
+	  		},
+			allName: function(){
+				return this.first + " " + this.last
+			},
+			loockUpStarCity: _.debounce(function(){
+				var ap = this
+				ap.startingCity = 'Searching...'
+				axios.get('http://ziptasticapi.com/'+ap.startingZip)
+				.then(function(response){
+					ap.startingCity = response.data.city + ' , ' + response.data.state + ' , ' + response.data.country
+				})
+				.catch(function(){
+					ap.startingCity = 'Invalid Zipcode!!!'
+				})
+			},500),
+			serarchEndCity: _.debounce(function(){
+				var obj = this
+				obj.endingCity = "Searching..."
+				axios.get('http://ziptasticapi.com/'+obj.endingZip)
+				.then(function(response){
+					obj.endingCity = response.data.city + ' , '+ response.data.state+ ' , ' + response.data.country
+				})
+				.catch(function(){
+					obj.endingCity = "Invalid Zip!!!"
+				})
+			},500)
+	  	},
+	  	computed: { // computed properties are chched 
+	  		fullName:{
+				get:function(){ // this is getter method
+	  				return this.firstName + " " + this.lastName
+	  			},
+				set: function(value){ // this is setter method
+					var name = value.split(' ');
+					this.firstName = name[0];
+					this.lastName = name[name.length - 1];
+				}  
+			  },
+	  		designation: function(){
+	  			if(this.xp >= 200){
+	  				return "Pro"
+	  			}else if(this.xp >= 100){
+	  				return "Intermediate"
+	  			}else if(this.xp >= 0){
+	  				return "Bigener"
+	  			}else{
+	  				return "Banned"
+	  			}
+	  		}
+	  	},
+		watch:{
+			startingZip: function(){
+				this.startingCity = ''
+				if(this.startingZip.length == 5){
+					this.loockUpStarCity()
+				}
+			},
+			endingZip: function(){
+				this.endingCity = ''
+				if(this.endingZip.length == 5){
+					this.serarchEndCity()
+				}
+			}
+		}
+	
+	});
+</script>
+</body>
+>>>>>>> 8112b6f2d687b9eab70322ab9638808f82917263
 </html>
