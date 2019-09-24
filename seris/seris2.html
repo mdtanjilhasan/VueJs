@@ -23,8 +23,40 @@
                         <p>You can not see me!3434556677878</p>
                         <p>You can not see me!787889890890</p>
                     </template>
+                    <p v-show="show">i am v - show</p> <!-- v-show does not remove element form the dom, its just hide it with display:none; -->
                     <button @click="show = !show">switch</button>
-                </div>
+                    <hr>
+                    <ul>
+                        <li v-for="item in medicine" :key="medicine">{{ item }}</li> <!-- item is the object name and medicine is the collection or array name -->
+                    </ul>
+                    <hr>
+                    <button @click="medicine.push('new one')">add new</button> <!-- push() method does not create new element but add new element to an existing array -->
+                    <hr>
+                    <ul type="square">
+                        <!-- in v-for loop first item is the value of an array and second value is index of the array -->
+                        <!-- here value is array value and key is index -->
+                        <li v-for="(value, key) in medicine">{{ value }} <b>in {{ key }} index</b></li><!-- value is the array value and key is the index -->
+                    </ul>
+                    <hr>
+                    <h3>loop through multiple non nested elements</h3>
+                    <template v-for="(value, index) in medicine">
+                        <h5>{{ value }}</h5>
+                        <p>{{ index }}</p> 
+                    </template>
+                    <hr>
+                    <h3>Nested loop example</h3>
+                    <ul>
+                        <li v-for="car in cars">
+                            <!-- loopIndex is like laravel loop index starts with 0 -->
+                            <p v-for="(value,key,loopIndex) in car">{{ key }} : {{ value }} <strong>loop index is</strong> {{ loopIndex }}</p>
+                        </li>
+                    </ul>
+
+                    <strong>1-10 print using loop</strong>
+                    <span v-for="n in 10">{{ n }}  </span>
+                    <hr>
+                
+                </div> 
             </div>
         </div>
     </div>
@@ -35,6 +67,11 @@
         el:'.second_part',
         data:{
             show:true,
+            medicine: ['finix','napa','amodis','sinamin','bashok'],
+            cars:[
+                {color: 'red',wheel:'4',doors:'4'},
+                {color: 'lightgray',wheel:'4',doors:'3'},
+            ],
         }
     });
 </script>
